@@ -24,7 +24,8 @@ function Dashboard() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [habitName, setHabitName] = useState("");
   const [frequency, setFrequency] = useState("daily");
-  const [reminder, setReminder] = useState("");
+  const [reminderTime, setReminderTime] = useState(""); // hh:mm
+  const [reminderPeriod, setReminderPeriod] = useState("AM"); // AM/PM
   const [category, setCategory] = useState("");
 
   // --- Habits state ---
@@ -45,7 +46,7 @@ function Dashboard() {
     return () => unsubscribe();
   }, [authInstance, navigate]);
 
-  // ✅ Load habits from RTDB and handle daily reset + streak break
+  // ✅ Load habits from RTDB
   useEffect(() => {
     if (!auth.currentUser) return;
 
@@ -57,28 +58,6 @@ function Dashboard() {
           id: key,
           ...data[key],
         }));
-
-        // --- Reset & streak-break logic ---
-        const todayStr = new Date().toDateString();
-        for (const habit of habitList) {
-          if (habit.lastReset !== todayStr) {
-            const habitRef = ref(db, `habits/${auth.currentUser.uid}/${habit.id}`);
-            let newStreak = habit.streak;
-
-            // If user didn’t complete yesterday → streak breaks
-            if (habit.completedToday === false) {
-              newStreak = 0;
-            }
-
-            await update(habitRef, {
-              completedToday: false,
-              lastReset: todayStr,
-              streak: newStreak,
-              totalPossible: habit.totalPossible + 1,
-            });
-          }
-        }
-
         setHabits(habitList);
       } else {
         setHabits([]);
@@ -130,10 +109,15 @@ function Dashboard() {
     const userId = auth.currentUser.uid;
     const habitId = Date.now().toString();
 
+    // Combine time + AM/PM
+    const formattedReminder = reminderTime
+      ? `${reminderTime} ${reminderPeriod}`
+      : "";
+
     const newHabit = {
       name: habitName,
       frequency,
-      reminder,
+      reminder: formattedReminder,
       category,
       createdAt: new Date().toISOString(),
       completedToday: false,
@@ -148,7 +132,8 @@ function Dashboard() {
       await set(ref(db, `habits/${userId}/${habitId}`), newHabit);
       setHabitName("");
       setFrequency("daily");
-      setReminder("");
+      setReminderTime("");
+      setReminderPeriod("AM");
       setCategory("");
       closeModal();
     } catch (err) {
@@ -177,7 +162,6 @@ function Dashboard() {
       const habit = habits.find((h) => h.id === id);
       if (!habit) return;
 
-      // Increment streak if completing today
       let newStreak = habit.streak;
       if (habit.lastCompletedAt !== todayStr) {
         newStreak = habit.streak + 1;
@@ -219,7 +203,7 @@ function Dashboard() {
     <div className="dashboard">
       {/* Navbar */}
       <div className="nav-bar">
-        <div className="logo">HabitFlow</div>
+        <div className="logo"><h1>HabitFlow</h1></div>
         <div className="profile-icon" ref={dropdownRef} onClick={toggleDropdown}>
           <FaRegUserCircle className="user-icon" />
           {isDropdownOpen && (
@@ -281,47 +265,53 @@ function Dashboard() {
         )}
 
         {/* Habits List */}
-        <div className="habit-list">
-          {filteredHabits.length === 0 ? (
-            <div className="habit-card empty">
-              <LuClipboardPenLine className="habit-icon" />
-              <h3>No habits yet</h3>
-              <p>Add your first one now!</p>
-            </div>
-          ) : (
-            filteredHabits.map((habit) => {
-              const progress =
-                habit.totalPossible > 0
-                  ? Math.round(
-                      (habit.totalCompletions / habit.totalPossible) * 100
-                    )
-                  : 0;
+<div className="habit-list">
+  {filteredHabits.length === 0 ? (
+    <div className="habit-card empty">
+      <LuClipboardPenLine className="habit-icon" />
+      <h3>No habits yet</h3>
+      <p>Add your first one now!</p>
+    </div>
+  ) : (
+    filteredHabits.map((habit) => {
+      const progress =
+        habit.totalPossible > 0
+          ? Math.round(
+              (habit.totalCompletions / habit.totalPossible) * 100
+            )
+          : 0;
 
-              return (
-                <div key={habit.id} className="habit-card">
-                  <h3>{habit.name}</h3>
-                  <p>Streak: 🔥 {habit.streak} days</p>
+      return (
+        <div key={habit.id} className="habit-card">
+          <h3>{habit.name}</h3>
+          <p>Streak: 🔥 {habit.streak} days</p>
 
-                  {/* Progress Bar */}
-                  <div className="progress-bar">
-                    <div
-                      className="progress-fill"
-                      style={{ width: `${progress}%` }}
-                    />
-                  </div>
-                  <p>{progress}% complete</p>
-
-                  <button
-                    onClick={() => markComplete(habit.id)}
-                    disabled={habit.completedToday}
-                  >
-                    {habit.completedToday ? "Completed" : "Mark Complete"}
-                  </button>
-                </div>
-              );
-            })
+          {/* ✅ Show reminder if set */}
+          {habit.reminder && (
+            <p className="habit-reminder">🕒 Reminder: {habit.reminder}</p>
           )}
+
+          {/* Progress Bar */}
+          <div className="progress-bar">
+            <div
+              className="progress-fill"
+              style={{ width: `${progress}%` }}
+            />
+          </div>
+          <p>{progress}% complete</p>
+
+          <button
+            onClick={() => markComplete(habit.id)}
+            disabled={habit.completedToday}
+          >
+            {habit.completedToday ? "Completed" : "Mark Complete"}
+          </button>
         </div>
+      );
+    })
+  )}
+</div>
+
 
         {/* Add Habit Button */}
         <button className="AddHabit-btn" onClick={openModal}>
@@ -368,12 +358,21 @@ function Dashboard() {
               </button>
             </div>
 
-            {/* Reminder */}
-            <input
-              type="time"
-              value={reminder}
-              onChange={(e) => setReminder(e.target.value)}
-            />
+            {/* Reminder (12hr format) */}
+            <div className="reminder-picker">
+              <input
+                type="time"
+                value={reminderTime}
+                onChange={(e) => setReminderTime(e.target.value)}
+              />
+              <select
+                value={reminderPeriod}
+                onChange={(e) => setReminderPeriod(e.target.value)}
+              >
+                <option value="AM">AM</option>
+                <option value="PM">PM</option>
+              </select>
+            </div>
 
             {/* Category */}
             <select

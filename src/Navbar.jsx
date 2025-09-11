@@ -10,7 +10,7 @@ function Navbar(){
 
     return(
             <div className="navbar">
-                <div className="logo"><h1>HabitFlow</h1></div>
+                <div className="logo-h1"><h1>HabitFlow</h1></div>
                     <div className={`links ${isOpen ? "active" : ""}`}>                
                             <ul className="nav-links">
                                 <li><a href="">Dashboard</a></li>

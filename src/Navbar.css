@@ -6,9 +6,12 @@
   justify-content: space-between;
   box-shadow: 0 4px 8px rgb(0, 0, 0, 0.1);
   position: fixed;
+  top: 0;          
+  left: 0;         
+  z-index: 1000;
 }
-.logo h1{ 
-  font-size: 1.3em;
+.logo-h1{ 
+  font-size: 1.5em;
   font-weight: 500;
   padding: 0.7em;
   color: #2563EB;
@@ -89,7 +92,7 @@
   justify-content: space-between;
   padding: 0.7em;
 }
-  .logo{
+  .logo-h1{
     font-size: 1.1em;
     padding: 0.5em;
   }
