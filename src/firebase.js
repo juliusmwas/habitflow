@@ -4,14 +4,14 @@ import { getAuth } from "firebase/auth";
 import { getDatabase } from "firebase/database";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCToHvNe9lMXWV_UqfqZBBT2Ldov71s2C4",
-  authDomain: "habitflow-9b65b.firebaseapp.com",
-  databaseURL: "https://habitflow-9b65b-default-rtdb.firebaseio.com", // 👈 important
-  projectId: "habitflow-9b65b",
-  storageBucket: "habitflow-9b65b.appspot.com",
-  messagingSenderId: "165934137243",
-  appId: "1:165934137243:web:034fc777485b24501b6b3e",
-  measurementId: "G-4MSE7W54PP"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  databaseURL: import.meta.env.VITE_FIREBASE_DATABASE_URL,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
 
 // Initialize Firebase
