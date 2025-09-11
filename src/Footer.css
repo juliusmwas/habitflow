@@ -1,0 +1,49 @@
+.footer {
+  color: #1f2937; 
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+.footer-h4 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.footer-p {
+  font-size: 0.95rem;
+  color: #1f2937;
+}
+
+.footer-cta {
+  display: inline-block;
+  margin-top: 0.5rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: #60a5fa; /* light blue */
+  transition: color 0.3s ease;
+}
+
+.footer-cta:hover {
+  color: #2563eb; /* darker blue */
+}
+/* basic modal styles (can merge with your Dashboard modal styles) */
+.modal-overlay{
+  position: fixed; inset:0;
+  background: rgba(0,0,0,0.6);
+  display:flex; align-items:center; justify-content:center;
+  z-index: 200;
+}
+.modal-content{
+  width: 90%; max-width: 420px; background: #fff; padding: 1.25rem;
+  border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+}
+.modal-content h2{ margin:0 0 0.75rem; text-align:center; }
+.modal-content input, .modal-content textarea{
+  width:100%; padding:0.6rem; margin-bottom:0.6rem; border-radius:8px; border:1px solid #ddd;
+}
+.modal-buttons{ display:flex; gap:0.5rem; }
+.send-btn{ flex:1; background:#4f46e5; color:white; border:none; padding:0.6rem; border-radius:8px; cursor:pointer; }
+.send-btn[disabled]{ opacity:0.6; cursor:not-allowed; }
+.cancel-btn{ flex:1; background:#f3f4f6; border:none; padding:0.6rem; border-radius:8px; cursor:pointer; }
+.status-msg{ margin-top:0.6rem; text-align:center; font-size:0.95rem; }

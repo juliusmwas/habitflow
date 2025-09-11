@@ -1,0 +1,134 @@
+/* navbar styling */
+.navbar{
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 4px 8px rgb(0, 0, 0, 0.1);
+  position: fixed;
+}
+.logo h1{ 
+  font-size: 1.3em;
+  font-weight: 500;
+  padding: 0.7em;
+  color: #2563EB;
+  cursor: pointer;
+
+}
+.links{
+  display: flex;
+  align-items: center;
+}
+.nav-links{
+  list-style: none;
+  padding: 0.7em;
+  display: flex;
+  gap: 1em;
+}
+.nav-links li a{
+  text-decoration: none;
+  color: #2563EB;
+  font-size: 1em;
+}
+.nav-links li a:hover{
+  text-decoration: none;
+  color: rgb(255, 166, 0);
+  font-size: 1em;
+}
+.authBtn{
+  padding: 0.7em;
+  display: flex;
+  gap: 10px;
+}
+.loginBtn{
+  padding: 4px 16px;
+  font-size: 1.2em;
+  font-weight: 400;
+  border-radius: 8px;
+  border: 1px solid #2563EB;
+  background-color: #F1F3F5;
+  color: #2563EB;
+  cursor: pointer;
+}
+.loginBtn:hover{
+  border: 1px solid #2563EB;
+  background-color: #2563EB;
+  color: white;
+  cursor: pointer;
+  transition: all 0.5s ease;
+  transform: translatey(-5px);
+}
+.signupBtn{
+  padding: 4px 16px;
+  font-size: 1.2em;
+  font-weight: 400;
+  border-radius: 8px;
+  border: none;
+  background-color: #2563EB;
+  color: white;
+  cursor: pointer;
+}
+.signupBtn:hover{
+  border: 1px solid #2563EB;
+  background-color: white;
+  color: #2563EB;
+  cursor: pointer;
+  transition: all 0.5s ease;
+  transform: translatey(-5px);
+}
+.menu-icon{
+  font-size: 2em;
+  color: #2563EB;
+  display: none;
+}
+
+/* navbar responsiveness styling */
+@media(max-width: 600px){
+  .navbar{
+  display: flex;
+  justify-content: space-between;
+  padding: 0.7em;
+}
+  .logo{
+    font-size: 1.1em;
+    padding: 0.5em;
+  }
+  .links {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    padding: 1em;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+
+  .links.active {
+  display: flex;
+  flex-direction: column;   /* stack everything */
+  position: absolute;
+  top: 60px; /* below navbar */
+  left: 0;
+  width: 100%;
+  padding: 1em;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.nav-links {
+  flex-direction: column;  /* stack links vertically */
+  gap: 1em;
+}
+
+.authBtn {
+  flex-direction: column;  /* stack buttons vertically */
+  gap: 0.5em;
+  margin-top: 0em;
+}
+  .menu-icon{
+    display: block;
+    cursor: pointer;
+  }
+}
+/* navbar responsiveness styling */
+/* navbar styling */
