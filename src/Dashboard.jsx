@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { FaRegUserCircle } from "react-icons/fa";
 import { LuClipboardPenLine } from "react-icons/lu";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
-import { ref, set, get, update, onValue } from "firebase/database"; // ✅ Realtime DB
+import { ref, set, update, onValue } from "firebase/database"; // ✅ Realtime DB
 import { auth, db } from "./firebase.js";
 
 import "./Dashboard.css";
@@ -96,7 +96,6 @@ function Dashboard() {
       midnight.setHours(24, 0, 0, 0);
 
       const diff = midnight - now;
-
       const hours = Math.floor(diff / (1000 * 60 * 60));
       const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((diff % (1000 * 60)) / 1000);
@@ -106,7 +105,6 @@ function Dashboard() {
 
     updateCountdown();
     const interval = setInterval(updateCountdown, 1000);
-
     return () => clearInterval(interval);
   }, []);
 
@@ -133,7 +131,6 @@ function Dashboard() {
     const habitId = Date.now().toString();
 
     const newHabit = {
-      userId,
       name: habitName,
       frequency,
       reminder,
@@ -175,14 +172,16 @@ function Dashboard() {
     try {
       const userId = auth.currentUser.uid;
       const habitRef = ref(db, `habits/${userId}/${id}`);
-
       const todayStr = new Date().toDateString();
 
       const habit = habits.find((h) => h.id === id);
       if (!habit) return;
 
-      const newStreak =
-        habit.lastCompletedAt === todayStr ? habit.streak : habit.streak + 1;
+      // Increment streak if completing today
+      let newStreak = habit.streak;
+      if (habit.lastCompletedAt !== todayStr) {
+        newStreak = habit.streak + 1;
+      }
 
       await update(habitRef, {
         completedToday: true,
@@ -235,7 +234,7 @@ function Dashboard() {
       <div className="hero-dashboard">
         <h2 className="dashboard-h2">Welcome to HabitFlow, {userName}</h2>
         <p className="dashboard-p">{today}</p>
-        <p className="countdown">{countdown}</p> {/* ✅ Countdown Timer */}
+        <p className="countdown">{countdown}</p>
 
         {/* Stats Cards */}
         {habits.length > 0 && (
