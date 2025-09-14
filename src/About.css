@@ -26,7 +26,7 @@
 
 .about-cards {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 cards per row on desktop */
+  grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
   margin-top: 2rem;
   align-items: center;
@@ -95,9 +95,21 @@
 
 
 /* Responsive */
-@media (max-width: 900px) {
+@media (max-width: 768px) {
   .about-cards {
     grid-template-columns: repeat(2, 1fr); /* 2 per row on tablets */
+  }
+  .about-h2 {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+
+  .about-p {
+    font-size: 0.8rem;
+  }
+
+  .about-h3 {
+    font-size: 1.5rem;
   }
 }
 

@@ -5,19 +5,19 @@
   padding: 0;
 }
 
-/* Hero container */
-.container {
+
+ .container {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   min-height: 70vh;       
-  padding: 70px 10%;
+  padding: 70px;
+  gap: 20em;
 }     
 
-/* Left side text */
-.hero-text {
-  flex: 1; 
-  margin-top: 1em;               /* takes up half width */
+.hero-text { 
+  margin-top: 1em;
+  margin-left: 2em;               
 }
 
 .hero-heading {
@@ -33,7 +33,7 @@
   color: #4a5568;
   margin-bottom: 30px;
   line-height: 1.6;
-}
+}  
 
 /* Buttons */
 .hero-btn {
@@ -75,8 +75,7 @@
 }
 
 /* Right side image */
-.hero-img img{
-  flex: 1; 
+.hero-img img{ 
   max-width: 100%;
   height: 400px;
   display: block;
@@ -88,58 +87,77 @@
 }
 /* Responsive (mobile view) */
 @media (max-width: 1024px) {
-  .container {
-    padding: 2rem 1.5rem;
-    gap: 4em;
+.container {
+    gap: 5rem; /* reduce spacing */
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
   }
-
+.hero-text{
+  width: 400px;
+  }
   .hero-heading {
-    font-size: 2rem; 
+    font-size: 2rem; /* shrink heading */
   }
 
   .hero-p {
-    font-size: 1rem;
+    font-size: 1rem; /* shrink paragraph */
   }
 
   .hero-img img {
-    max-width: 500px; 
+    max-width: 100%; /* make image smaller */
+  }
+  .hero-btn {
+    display: flex;
+    gap: 15px;
+    width: 100%;
+    width: 500px;
+  }
+  .social{
+    text-align: center;
+    font-size: 1rem;
+    margin: 0 auto;
   }
 }
 
-@media (max-width: 768px) {
+ @media (max-width: 768px) {
   .container {
-    flex-direction: row; /* stack text & image */
-    text-align: center;
-    padding: 2rem 1rem;
+    gap: 3rem; /* reduce spacing */
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
   }
-  .hero-text{
-    margin-top:2em;
-    flex: 1;
-  }
-  .hero-img img{
-    margin-top: 4em;
+.hero-text{
+  width: 300px;
   }
   .hero-heading {
-    font-size: 1.5rem;
+    font-size: 1.4rem; /* shrink heading */
   }
 
   .hero-p {
-    font-size: 0.8rem;
-  }
-  .hero-btn {
-    flex-direction: column;
-    align-items: center;
+    font-size: 0.7rem;
   }
 
-  .get-started-btn,
-  .learn-more-btn {
+  .hero-img img {
+    max-width: 100%; 
+  }
+  .hero-btn {
+    display: flex;
+    gap: 15px;
     width: 100%;
-    max-width: 200px;
+    width: 400px;
   }
-  .social {
-   margin: 0;
+  .social{
+    text-align: center;
+    font-size: 1rem;
+    margin: 0 auto;
   }
-}
+} 
+
 @media (max-width: 600px) {
   .container {
     flex-direction: column; 
