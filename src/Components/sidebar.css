@@ -1,0 +1,83 @@
+:root {
+  --sidebar-width: 220px;
+  --sidebar-collapsed-width: 60px;
+  --sidebar-bg: #1e293b;
+  --sidebar-text: #f1f5f9;
+  --sidebar-active: #3b82f6;
+  --transition: 0.3s ease;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: var(--sidebar-width);
+  background-color: var(--sidebar-bg);
+  color: var(--sidebar-text);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: width var(--transition);
+  overflow: hidden;
+  z-index: 1000;
+}
+
+.sidebar.collapsed {
+  width: var(--sidebar-collapsed-width);
+}
+
+/* Logo */
+.sidebar__logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 1rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+/* Nav */
+.sidebar__nav {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 1rem 0;
+}
+
+.sidebar__link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0.75rem 1rem;
+  color: var(--sidebar-text);
+  text-decoration: none;
+  transition: background var(--transition);
+}
+
+.sidebar__link:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Active link (React Router adds "active" class automatically) */
+.sidebar__link.active {
+  background: rgba(59, 130, 246, 0.2);
+  border-left: 4px solid var(--sidebar-active);
+  color: var(--sidebar-active);
+}
+
+/* Collapse Button */
+.sidebar__toggle {
+  background: none;
+  border: none;
+  color: var(--sidebar-text);
+  padding: 1rem;
+  cursor: pointer;
+  font-size: 1.2rem;
+  text-align: center;
+  transition: background var(--transition);
+}
+
+.sidebar__toggle:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
