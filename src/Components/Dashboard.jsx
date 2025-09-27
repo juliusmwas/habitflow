@@ -116,9 +116,9 @@ function Dashboard() {
 
       {/* Main Content */}
       <div
-        className={`flex-1 transition-all duration-300 ${
-          isCollapsed ? "ml-20" : "ml-64"
-        }`}
+        className={`flex-1 transition-all duration-300 
+          ${isMobileOpen ? "ml-0" : isCollapsed ? "ml-20" : "ml-64"}
+        `}
       >
         {/* Mobile menu toggle button */}
         <button
@@ -128,7 +128,7 @@ function Dashboard() {
           ☰
         </button>
 
-        <div className="p-4">{renderPage()}</div>
+        <div className="p-6">{renderPage()}</div>
       </div>
     </div>
   );
