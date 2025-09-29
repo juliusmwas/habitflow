@@ -70,7 +70,7 @@ function DashboardPage() {
   return (
     <div className="max-w-[1000px]">
       {/* Top cards */}
-      <div className="flex gap-4 mb-4 flex-col lg:flex-row">
+      <div className="flex  gap-4 mb-4 flex-col lg:flex-row">
         {/* Left card */}
         <div className="bg-blue-300 h-80 flex-1 rounded-xl flex items-center justify-between overflow-hidden">
           <div className="flex flex-col items-center text-center px-9">

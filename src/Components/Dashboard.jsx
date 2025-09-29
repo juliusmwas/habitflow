@@ -79,7 +79,7 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="min-h-screen">
+    <div >
       {/* Sidebar (fixed) */}
       <aside
         aria-label="Sidebar"
@@ -87,11 +87,10 @@ export default function Dashboard() {
           width: sidebarWidth,
           transform: drawerVisible ? "translateX(0)" : "translateX(-100%)",
         }}
-        className="fixed top-0 left-0 h-screen bg-white shadow-xl transition-transform duration-200 z-50"
-      >
-        <nav className="h-full flex flex-col p-4">
-          <div className="flex items-center justify-between pb-6">
-            {!isCollapsed && <h1 className="text-2xl font-bold">HabitFlow</h1>}
+        className="fixed top-0 left-0  h-screen bg-white shadow-xl transition-transform duration-200 z-50">
+        <nav className="h-full flex flex-col">
+          <div className="flex items-center justify-between pb-6 px-6">
+            {!isCollapsed && <h1 className="text-2xl font-bold ">HabitFlow</h1>}
 
             {/* mobile close button */}
             {!isDesktop && (
