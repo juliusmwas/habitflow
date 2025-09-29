@@ -1,6 +1,4 @@
-/* ===================
-   General Dashboard
-=================== */
+/* 
 .dashboard {
   min-height: 100vh;
   color: #1f2937;
@@ -8,9 +6,7 @@
   margin: 0;
 }
 
-/* ===================
-   Navbar
-=================== */
+
 .nav-bar {
   display: flex;
   justify-content: space-between;
@@ -70,9 +66,6 @@
   background-color: #f9fafb;
 }
 
-/* ===================
-   Hero Section
-=================== */
 .hero-dashboard {
   text-align: center;
   padding: 2rem 1rem;
@@ -93,9 +86,7 @@
     font-weight: 600;
     color: red;
   }
-/* ===================
-   Stats Cards
-=================== */
+
 .stats-cards {
   display: flex;
   justify-content: center;
@@ -126,9 +117,7 @@
   background: white;
 }
 
-/* ===================
-   Segmented Control
-=================== */
+
 .segmented-control {
   display: flex;
   justify-content: center;
@@ -151,9 +140,7 @@
   border-color: #4f46e5;
 }
 
-/* ===================
-   Habit List
-=================== */
+
 .habit-list {
   display: grid;
   gap: 1rem;
@@ -202,7 +189,7 @@
   background: #9ca3af;
   cursor: not-allowed;
 }
-/* Enhanced empty-state card (looks like a centered hero card) */
+
 .habit-card.empty {
   text-align: center;
   color: #6b7280;
@@ -220,10 +207,9 @@
   box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
 }
 
-/* Icon inside empty card */
 .habit-card.empty .habit-icon {
-  font-size: 3.5rem;                 /* large icon */
-  color: #4f46e5;                    /* primary purple */
+  font-size: 3.5rem;                 
+  color: #4f46e5;                    
   background: white;
   padding: 0.6rem;
   border-radius: 999px;
@@ -233,7 +219,6 @@
   margin-bottom: 0.75rem;
 }
 
-/* Title and subtitle */
 .habit-card.empty h3 {
   font-size: 1.25rem;
   margin: 0;
@@ -250,14 +235,12 @@
   background: white;
 }
 
-/* small CTA spacing if you want a button under the empty card */
+
 .habit-card.empty .empty-cta {
   margin-top: 1rem;
 }
 
-/* ---------- Centering the empty card in the page ---------- */
 
-/* Preferred (modern browsers): center when habit-list contains the empty card */
 .habit-list:has(.habit-card.empty) {
   display: flex;
   align-items: center;
@@ -265,7 +248,7 @@
   padding: 0 1rem;
 }
 
-/* Fallback (broad support): add 'center-empty' class to habit-list from JSX */
+
 .habit-list.center-empty {
   display: flex;
   align-items: center;
@@ -275,7 +258,6 @@
 
 
 
-/* Progress Bar */
 .progress-bar {
   width: 100%;
   background: #e5e7eb;
@@ -291,9 +273,6 @@
   transition: width 0.3s ease;
 }
 
-/* ===================
-   Add Habit Button
-=================== */
 .AddHabit-btn {
   display: inline-block;
   margin: 1rem auto;
@@ -311,9 +290,7 @@
   background: #4338ca;
 }
 
-/* ===================
-   Modal
-=================== */
+
 .modal-overlay {
   position: fixed;
   top: 0; left: 0;
@@ -408,9 +385,7 @@
   cursor: pointer;
 }
 
-/* ===================
-   Congrats Popup
-=================== */
+
 .congrats-popup {
   position: fixed;
   bottom: 2rem;
@@ -424,9 +399,7 @@
   z-index: 200;
 }
 
-/* ===================
-   Animations
-=================== */
+
 @keyframes fadeIn {
   from { opacity: 0; transform: scale(0.95); }
   to { opacity: 1; transform: scale(1); }
@@ -437,9 +410,7 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* ===================
-   Responsive
-=================== */
+
 @media (max-width: 600px) {
   .nav-bar {
   display: flex;
@@ -497,4 +468,4 @@
     left: 1rem;
     text-align: center;
   }
-}
+} */

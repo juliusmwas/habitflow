@@ -30,6 +30,7 @@ function App() {
               <Hero />
               <About />
               <Footer />
+              
             </>
           }
         />
@@ -59,3 +60,4 @@ function App() {
 }
 
 export default App;
+
