@@ -32,7 +32,7 @@ function Dashboard() {
   const [habits, setHabits] = useState([]);
   const [view, setView] = useState("daily");
   const [congrats, setCongrats] = useState("");
-  const [countdown, setCountdown] = useState("");
+  const [countdown,] = useState("");
 
   // ✅ Auth state
   useEffect(() => {
@@ -68,24 +68,32 @@ function Dashboard() {
   }, [auth.currentUser]);
 
   // ✅ Countdown timer (until midnight)
-  useEffect(() => {
-    const updateCountdown = () => {
-      const now = new Date();
-      const midnight = new Date();
-      midnight.setHours(24, 0, 0, 0);
+ useEffect(() => {
+  const resetHabitsAtMidnight = () => {
+    if (!auth.currentUser) return;
+    const userId = auth.currentUser.uid;
 
-      const diff = midnight - now;
-      const hours = Math.floor(diff / (1000 * 60 * 60));
-      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+    habits.forEach(async (habit) => {
+      const todayStr = new Date().toDateString();
 
-      setCountdown(`Resets in ${hours}h ${minutes}m ${seconds}s`);
-    };
+      // if we already reset today, skip
+      if (habit.lastReset === todayStr) return;
 
-    updateCountdown();
-    const interval = setInterval(updateCountdown, 1000);
-    return () => clearInterval(interval);
-  }, []);
+      const habitRef = ref(db, `habits/${userId}/${habit.id}`);
+      await update(habitRef, {
+        completedToday: false,
+        totalPossible: habit.totalPossible + 1,
+        lastReset: todayStr,
+      });
+    });
+  };
+
+  // Run reset check every 1 minute
+  const interval = setInterval(resetHabitsAtMidnight, 60 * 1000);
+
+  return () => clearInterval(interval);
+}, [habits]);
+
 
   // ✅ Close dropdown when clicking outside
   useEffect(() => {
@@ -140,6 +148,16 @@ function Dashboard() {
       console.error("Error adding habit:", err);
     }
   };
+
+  const deleteHabit = async (id) => {
+  try {
+    const userId = auth.currentUser.uid;
+    const habitRef = ref(db, `habits/${userId}/${id}`);
+    await set(habitRef, null); // deletes from Firebase
+  } catch (err) {
+    console.error("Error deleting habit:", err);
+  }
+};
 
   // --- Logout ---
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
@@ -304,10 +322,11 @@ function Dashboard() {
             <button
             onClick={() => markComplete(habit.id)}
             disabled={habit.completedToday}
+            className="complete-btn"
           >
             {habit.completedToday ? "Completed" : "Mark Complete"}
           </button>
-          <button>delete Habit</button>
+          <button className="delete-btn" onClick={() => deleteHabit(habit.id)}>Delete Habit</button>
         </div>
           
         </div>

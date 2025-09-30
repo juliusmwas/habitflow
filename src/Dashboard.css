@@ -171,7 +171,7 @@
   background: white;
 }
 
-.habit-card button {
+.complete-btn {
   margin-top: 0.75rem;
   padding: 0.5rem 1rem;
   border: none;
@@ -182,17 +182,27 @@
   transition: background 0.2s;
 }
 
-.habit-card button:hover:not(:disabled) {
+.complete-btn:hover:not(:disabled) {
   background: #4338ca;
 }
 
-.habit-card button:disabled {
+.complete-btn:disabled {
   background: #9ca3af;
   cursor: not-allowed;
 }
 .btn-habit{
   display: flex;
   gap: 2em;
+}
+.delete-btn{
+  margin-top: 0.75rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  background:red;
+  color: white;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background 0.2s;
 }
 
 .habit-card.empty {
