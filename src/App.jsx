@@ -4,7 +4,7 @@ import Hero from "./Hero";
 import About from "./About";
 import Footer from "./Footer";
 import Auth from "./Auth";
-import Dashboard from "./Components/Dashboard"; 
+import Dashboard from "./Dashboard"; 
 import { useAuth } from "./context/AuthContext";
 
 

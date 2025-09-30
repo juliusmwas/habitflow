@@ -1,4 +1,4 @@
-/* 
+
 .dashboard {
   min-height: 100vh;
   color: #1f2937;
@@ -74,7 +74,7 @@
 .dashboard-h2 {
   font-size: 1.8rem;
   margin-bottom: 0.5rem;
-  font-weight: 600;
+  font-weight: bold;
 }
 
 .dashboard-p {
@@ -93,13 +93,14 @@
   gap: 1rem;
   flex-wrap: wrap;
   margin-bottom: 1.5rem;
+  margin-top: 1.3em;
 }
 
 .stat-card {
   flex: 1 1 120px;
   border-radius: 0.75rem;
   padding: 1rem;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.5);
   text-align: center;
   background: white;
 }
@@ -188,6 +189,10 @@
 .habit-card button:disabled {
   background: #9ca3af;
   cursor: not-allowed;
+}
+.btn-habit{
+  display: flex;
+  gap: 2em;
 }
 
 .habit-card.empty {
@@ -468,4 +473,4 @@
     left: 1rem;
     text-align: center;
   }
-} */
+} 
