@@ -1,0 +1,114 @@
+:root {
+  --sidebar-expanded: 256px; /* width when open */
+  --sidebar-collapsed: 80px; /* width when collapsed */
+  --sidebar-bg: #ffffff;
+  --sidebar-border: #e6e6e6;
+  --accent: #1f6feb;
+  --muted: #6b7280;
+}
+
+/* Sidebar base */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  background: var(--sidebar-bg);
+  border-right: 1px solid var(--sidebar-border);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  display: flex;
+  flex-direction: column;
+  transition: width 220ms ease, transform 200ms ease;
+  z-index: 50;
+  overflow: hidden;
+}
+
+/* expanded vs collapsed widths */
+.sidebar.expanded { width: var(--sidebar-expanded); }
+.sidebar.collapsed { width: var(--sidebar-collapsed); }
+
+/* top area */
+.sidebar-top {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding: 12px;
+  border-bottom: 1px solid var(--sidebar-border);
+}
+
+/* brand */
+.brand { display:flex; align-items:center; gap:10px; }
+.brand-icon {
+  width:40px; height:40px; border-radius:8px;
+  display:flex; align-items:center; justify-content:center;
+  background:var(--accent); color:white; font-weight:bold;
+}
+.brand-title { font-size:1.05rem; font-weight:700; color:#111827; }
+
+/* collapse button */
+.collapse-btn {
+  background: transparent;
+  border: 1px solid var(--sidebar-border);
+  padding:6px 8px;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+/* nav */
+.sidebar-nav {
+  padding: 10px;
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  overflow:auto;
+}
+
+/* nav item */
+.nav-item {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:10px;
+  border-radius:8px;
+  text-decoration:none;
+  color: #111827;
+  font-weight:500;
+}
+.nav-item:hover {
+  background:#f3f4f6;
+}
+
+/* icon and label */
+.nav-icon { font-size:20px; width:24px; text-align:center; color:var(--muted); }
+.nav-label { font-size:0.95rem; color:#111827; }
+
+/* active link style */
+.nav-item.active {
+  background: var(--accent);
+  color: white;
+}
+.nav-item.active .nav-icon { color: white; }
+
+/* ---------- Main layout shifting ---------- */
+/* We rely on body[data-sidebar] to adjust main area */
+body[data-sidebar="expanded"] .main {
+  margin-left: var(--sidebar-expanded);
+  transition: margin-left 200ms ease;
+}
+body[data-sidebar="collapsed"] .main {
+  margin-left: var(--sidebar-collapsed);
+  transition: margin-left 200ms ease;
+}
+
+/* mobile: make sidebar overlay (optional) */
+@media (max-width: 767px) {
+  .sidebar { transform: translateX(0); position: fixed; z-index: 60; }
+  /* You may want to toggle a class to show/hide the sidebar on mobile; we'll handle that later. */
+  body[data-sidebar="expanded"] .main,
+  body[data-sidebar="collapsed"] .main {
+    margin-left: 0; /* main full width on small screens by default */
+  }
+}
+
+/* small utilities */
+.sidebar-nav::-webkit-scrollbar { height:6px; width:6px; }

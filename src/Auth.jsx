@@ -160,7 +160,7 @@ function Auth() {
             <input
               type="text"
               name="fullName"
-              placeholder="Full Name"
+              placeholder="Name"
               value={formData.fullName}
               onChange={handleChange}
             />

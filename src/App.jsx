@@ -4,9 +4,16 @@ import Hero from "./Hero";
 import About from "./About";
 import Footer from "./Footer";
 import Auth from "./Auth";
-import Dashboard from "./Dashboard"; 
+import DashboardLayout from "./DashboardLayout"; 
+import DashboardPage from "./pages/DashboardPage"; 
+import StatisticsPage from "./pages/StatisticsPage";
+import CalendarPage from "./pages/CalendarPage";
+import JournalPage from "./pages/JournalPage";
+import AchievementsPage from "./pages/AchievementsPage";
+import SettingsPage from "./pages/SettingsPage";
+import ProfilePage from "./pages/ProfilePage";
+import LogoutPage from "./pages/LogoutPage";
 import { useAuth } from "./context/AuthContext";
-
 
 // ProtectedRoute component
 function ProtectedRoute({ children }) {
@@ -30,7 +37,6 @@ function App() {
               <Hero />
               <About />
               <Footer />
-              
             </>
           }
         />
@@ -45,19 +51,28 @@ function App() {
           }
         />
 
-        {/* Private route (different layout, no public navbar) */}
+        {/* Private routes with Sidebar layout */}
         <Route
-          path="/dashboard"
+          path="/dashboard/*"
           element={
             <ProtectedRoute>
-              <Dashboard /> {/* Dashboard has its own layout/navbar */}
+              <DashboardLayout />
             </ProtectedRoute>
           }
-        />
+        >
+          {/* Nested pages */}
+          <Route index element={<DashboardPage />} />
+          <Route path="statistics" element={<StatisticsPage />} />
+          <Route path="calendar" element={<CalendarPage />} />
+          <Route path="journal" element={<JournalPage />} />
+          <Route path="achievements" element={<AchievementsPage />} />
+          <Route path="settings" element={<SettingsPage />} />
+          <Route path="profile" element={<ProfilePage />} />
+          <Route path="logout" element={<LogoutPage />} />
+        </Route>
       </Routes>
     </Router>
   );
 }
 
 export default App;
-

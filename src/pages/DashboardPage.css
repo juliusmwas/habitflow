@@ -1,0 +1,144 @@
+.dashboard-page {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  color: #111827;
+}
+
+.welcome h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  color: #1f6feb;
+}
+
+.welcome p {
+  margin: 4px 0 20px;
+  color: #6b7280;
+}
+
+/* Quick stats */
+.quick-stats {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.stat-card {
+  flex: 1;
+  background: #ffffff;
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.stat-card h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #1f6feb;
+}
+
+.stat-card p {
+  margin: 8px 0 0;
+  color: #6b7280;
+}
+
+/* Today's habits */
+.todays-habits {
+  margin-bottom: 24px;
+}
+
+.todays-habits h2 {
+  margin-bottom: 12px;
+  font-size: 1.3rem;
+}
+
+.todays-habits ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.todays-habits li {
+  margin-bottom: 10px;
+  background: #f9fafb;
+  padding: 10px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+}
+
+/* Recent activity */
+.recent-activity {
+  margin-bottom: 24px;
+}
+
+.recent-activity h2 {
+  margin-bottom: 12px;
+  font-size: 1.3rem;
+}
+
+.recent-activity ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.recent-activity li {
+  margin-bottom: 8px;
+  color: #374151;
+}
+
+/* Achievements preview */
+.achievements-preview {
+  background: #f0f9ff;
+  border: 1px solid #bae6fd;
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 24px;
+}
+
+.achievements-preview h2 {
+  margin-top: 0;
+  font-size: 1.3rem;
+  color: #1d4ed8;
+}
+
+.achievements-preview p {
+  margin: 8px 0 0;
+  color: #1e3a8a;
+}
+
+/* Call to Action */
+.cta {
+  display: flex;
+  gap: 12px;
+}
+
+.primary-btn {
+  background: #1f6feb;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.primary-btn:hover {
+  background: #155acb;
+}
+
+.secondary-btn {
+  background: transparent;
+  border: 1px solid #1f6feb;
+  color: #1f6feb;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.secondary-btn:hover {
+  background: #e0ecff;
+}

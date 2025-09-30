@@ -1,0 +1,27 @@
+/* src/DashboardLayout.css */
+
+.dashboard-layout {
+  display: flex;
+}
+
+/* Sidebar width */
+.sidebar.expanded {
+  width: 220px;
+}
+.sidebar.collapsed {
+  width: 60px;
+}
+
+
+/* Main content */
+.dashboard-main {
+  flex: 1;
+  margin-left: 220px; /* default when expanded */
+  padding: 20px;
+  transition: margin-left 0.3s ease;
+}
+
+/* When collapsed, adjust */
+body[data-sidebar="collapsed"] .dashboard-main {
+  margin-left: 60px;
+}
