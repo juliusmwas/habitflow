@@ -2,6 +2,7 @@
 import React from "react";
 import "./DashboardPage.css";
 import { RiDashboardHorizontalLine } from "react-icons/ri";
+import { Habits } from "./Habit.js";
 
 export default function DashboardPage() 
 {
@@ -101,15 +102,24 @@ segments.forEach(segment => {
             <table>
               <tr>
                 <th>Habit</th>
-                <th>progress</th>
                 <th>Streak</th>
                 <th>Status</th>
                 <th>Actions</th>
               </tr>
 
-              <tr>
-                <th></th>
-              </tr>
+              <tbody>
+                {Habits.map((h, index) => (
+                  <tr key={index}>
+                    <td>{h.habit}</td>
+                    <td>{h.streak} 🔥</td>
+                    <td>{h.status}</td>
+                    <td>
+                      <button className="btn complete">✔ Complete</button>
+                      <button className="btn delete">🗑 Delete</button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
 
 
             </table>
