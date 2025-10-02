@@ -8,6 +8,7 @@ import { BsJournalBookmark } from "react-icons/bs";
 import { LiaAwardSolid } from "react-icons/lia";
 import { FaRegUser } from "react-icons/fa6";
 import { IoIosLogOut } from "react-icons/io";
+import { IoMenu } from "react-icons/io5";
 import "./Sidebar.css";
 
 export default function Sidebar() {
@@ -43,6 +44,7 @@ export default function Sidebar() {
       className={`sidebar ${collapsed ? "collapsed" : "expanded"}`}
       aria-label="Main navigation"
     >
+      <IoMenu className="sidebar-menu-icon" />
       <div className="sidebar-top">
         {!collapsed && <h1 className="brand-title">HabitFlow</h1>}
 
@@ -72,5 +74,7 @@ export default function Sidebar() {
         ))}
       </nav>
     </aside>
+    
   );
+
 }
