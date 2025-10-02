@@ -119,6 +119,17 @@ segments.forEach(segment => {
                     </td>
                   </tr>
                 ))}
+                {Habits.map((h, index) => (
+                  <tr key={index}>
+                    <td>{h.habit}</td>
+                    <td>{h.streak} 🔥</td>
+                    <td>{h.status}</td>
+                    <td>
+                      <button className="btn complete">✔ Complete</button>
+                      <button className="btn delete">🗑 Delete</button>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
 
 

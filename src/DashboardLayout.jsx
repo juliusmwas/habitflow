@@ -1,7 +1,7 @@
 // src/DashboardLayout.jsx
 import React from "react";
 import { Outlet } from "react-router-dom";
-import Sidebar from "./components/Sidebar";
+import Sidebar from "./Components/Sidebar";
 import "./DashboardLayout.css";
 
 export default function DashboardLayout() {
