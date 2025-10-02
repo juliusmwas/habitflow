@@ -108,91 +108,97 @@ export default function DashboardPage() {
         </div>
 
         <div className="segment-content">
+          
           {/* Daily */}
           {activeTab === "daily" && (
             <div className="content active">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Habit</th>
-                    <th>Streak</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {Habits.map((h, index) => (
-                    <tr key={index}>
-                      <td>{h.habit}</td>
-                      <td>{h.streak} 🔥</td>
-                      <td>{h.status}</td>
-                      <td className="btn-habit">
-                        <button className="btn-complete">Complete</button>
-                        <button className="btn-delete">Delete</button>
-                      </td>
+              <div className="table-wrapper">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Habit</th>
+                      <th>Streak</th>
+                      <th>Status</th>
+                      <th>Actions</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {Habits.map((h, index) => (
+                      <tr key={index}>
+                        <td>{h.habit}</td>
+                        <td>{h.streak} 🔥</td>
+                        <td>{h.status}</td>
+                        <td className="btn-habit">
+                          <button className="btn-complete">Complete</button>
+                          <button className="btn-delete">Delete</button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
           )}
 
           {/* Weekly */}
           {activeTab === "weekly" && (
             <div className="content active">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Habit</th>
-                    <th>Streak</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {Habits.map((h, index) => (
-                    <tr key={index}>
-                      <td>{h.habit}</td>
-                      <td>{h.streak} 🔥</td>
-                      <td>{h.status}</td>
-                      <td className="btn-habit">
-                        <button className="btn-complete">Complete</button>
-                        <button className="btn-delete">Delete</button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            
+              <div className="table-wrapper">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Habit</th>
+                        <th>Streak</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {Habits.map((h, index) => (
+                        <tr key={index}>
+                          <td>{h.habit}</td>
+                          <td>{h.streak} 🔥</td>
+                          <td>{h.status}</td>
+                          <td className="btn-habit">
+                            <button className="btn-complete">Complete</button>
+                            <button className="btn-delete">Delete</button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
             </div>
           )}
 
           {/* Monthly */}
           {activeTab === "monthly" && (
             <div className="content active">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Habit</th>
-                    <th>Streak</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {Habits.map((h, index) => (
-                    <tr key={index}>
-                      <td>{h.habit}</td>
-                      <td>{h.streak} 🔥</td>
-                      <td>{h.status}</td>
-                      <td className="btn-habit">
-                        <button className="btn-complete">Complete</button>
-                        <button className="btn-delete">Delete</button>
-                      </td>
+              <div className="table-wrapper">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Habit</th>
+                      <th>Streak</th>
+                      <th>Status</th>
+                      <th>Actions</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {Habits.map((h, index) => (
+                      <tr key={index}>
+                        <td>{h.habit}</td>
+                        <td>{h.streak} 🔥</td>
+                        <td>{h.status}</td>
+                        <td className="btn-habit">
+                          <button className="btn-complete">Complete</button>
+                          <button className="btn-delete">Delete</button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
               
             </div>
           )}

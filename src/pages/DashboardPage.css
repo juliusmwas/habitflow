@@ -1,75 +1,86 @@
-
 .parent {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    grid-template-rows: repeat(9, 1fr);
-    gap: 8px;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(9, auto);
+  gap: 1em;
 }
-    
+
+/* ---------------- HERO ---------------- */
 .div1 {
-    grid-column: span 4 / span 4;
-    grid-row: span 4 / span 4;
-    background-color:  #93c5fd;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-radius: 20px;
-    overflow: hidden;
+  grid-column: span 4;
+  grid-row: span 4;
+  background-color: #93c5fd;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 20px;
+  overflow: hidden;
+  padding: 1.5em;
+  max-width: 100%;
 }
-.hero-text{
-  padding: 1em;
+
+.hero-text {
+  flex: 1;
+  min-width: 250px;
 }
-.hero-h1{
-  font-size: 35px;
+
+.hero-h1 {
+  font-size: clamp(24px, 4vw, 40px);
   font-weight: bold;
   padding-bottom: 0.8em;
   color: white;
 }
-.hero-p{
-  font-size: 15px;
-  color: white;
 
+.hero-p {
+  font-size: 1em;
+  color: white;
 }
-.d-btn{
+
+.d-btn {
   background-color: white;
   border-radius: 10px;
   padding: 0.6em 1.2em;
   font-weight: bold;
   cursor: pointer;
+  margin-top: 1em;
 }
-.d-btn:hover{
+.d-btn:hover {
   background-color: #3e4bfc;
   color: white;
 }
-.hero-image{
-  height: 350px;  
-  margin-top: 1em;
-  width: 300px;
+
+.hero-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 350px;
 }
-img{
-  margin-top: 3em;
+.hero-image img {
+  width: 100%;
+  height: auto;
 }
+
+/* ---------------- STATS ---------------- */
 .div2 {
-    grid-column: span 2 / span 2;
-    grid-row: span 4 / span 4;
-    grid-column-start: 5;
-    background-color: #1f2937;
-    border-radius: 20px;
-    padding: 1em;
+  grid-column: span 2;
+  grid-row: span 4;
+  background-color: #1f2937;
+  border-radius: 20px;
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-.stats{
+
+.stats {
   display: flex;
   align-items: center;
   justify-content: space-between;
   color: white;
+  width: 100%;
 }
-.stats-h1{
-  font-weight: bold;
-  font-size: 1.2em;
-}
-.dash-icon{
-  font-size: 20px;
-}
+
 .circular-progress {
   position: relative;
   height: 160px;
@@ -79,11 +90,9 @@ img{
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto;
   margin-top: 3em;
 }
 
-/* Inner circle */
 .circular-progress::before {
   content: "";
   position: absolute;
@@ -93,14 +102,12 @@ img{
   background-color: #1f2937;
 }
 
-/* Text inside */
 .progress-content {
   position: relative;
   text-align: center;
 }
 
 .progress-value {
-  display: block;
   font-size: 1.6rem;
   font-weight: bold;
   color: white;
@@ -111,66 +118,62 @@ img{
   color: white;
 }
 
-/* Common style for dots */
-.progress-dot {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 16px;
-  height: 16px;
-  background: #2563eb;
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-}
-
-/* Start dot (fixed at 0deg) */
-.start-dot {
-  transform: translate(-50%, -50%) rotate(0deg) translate(72px);
-}
-
-/* End dot (moves with progress) */
-.end-dot {
-  transform: translate(-50%, -50%) rotate(0deg) translate(72px);
-  transition: transform 0.3s linear;
-}
-
-
-
-.stats-content{
+.stats-content {
   display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  margin-top: 2em;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin-top: 3em;
+  gap: 1em;
+  width: 100%;
 }
 .stats-box{
+  font-size: 13px;
+}
+.stats-box {
   color: white;
   font-weight: bold;
+  text-align: center;
 }
-.stats-h2{
- font-size: 15px;
-}
-.stats-p{
- font-size: 12px;
-}
+
+/* ---------------- SEGMENTED CONTROL ---------------- */
 .div3 {
-    grid-column: span 6 / span 6;
-    grid-row: span 5 / span 5;
-    grid-row-start: 5;
-    background-color:#e5e7eb;
-    border-radius: 20px;
+  grid-column: span 6;
+  grid-row: span 5;
+  background-color: #e5e7eb;
+  border-radius: 20px;
+  padding: 1em;
 }
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;   /* ✅ enables horizontal scroll only for the table */
+  -webkit-overflow-scrolling: touch; /* smooth scroll on mobile */
+}
+
+.table-wrapper table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 500px;  /* ✅ ensures scroll triggers when screen is smaller */
+}
+
+.table-wrapper th,
+.table-wrapper td {
+  padding: 0.75em 1em;
+  text-align: left;
+  white-space: nowrap; /* ✅ prevents text from breaking into multiple lines */
+}
+
 .segmented-control {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   background: #e5e7eb;
   border-radius: 10px;
   padding: 5px;
-  width: fit-content;
   margin: 20px auto;
+  gap: 0.5em;
 }
 
 .segment {
-  flex: 1;
   padding: 10px 20px;
   border: none;
   border-radius: 8px;
@@ -187,54 +190,222 @@ img{
   color: white;
 }
 
-.segment-content {
-  text-align: center;
-  margin-top: 20px;
-}
-
-.content {
-  display: none;
-}
-
-.content.active {
-  display: block;
-}
-
-table{
-  background-color: blue;
+/* ---------------- TABLE ---------------- */
+table {
+  background-color: white;
   border-radius: 10px;
-  align-items: center;
-  justify-content: center;
-  width: 60%;
+  width: 90%;
   margin: 0 auto;
-  margin-top: 1em; 
+  margin-top: 1em;
+  border-collapse: collapse;
+  overflow-x: auto;
 }
-thead{
+
+thead {
   background-color: #c1d5f5;
 }
-tbody, td{
-  background-color: white;
+th, td {
   padding: 0.7em;
+  text-align: center;
 }
-.btn-habit{
+tbody td {
+  background-color: white;
+}
+
+.btn-habit {
   display: flex;
-  gap: 1em;
+  gap: 0.5em;
+  justify-content: center;
+  flex-wrap: wrap;
 }
-.btn-complete{
+
+.btn-complete {
   background-color: green;
   color: white;
-  padding: 0.2em 0.5em;
-  border-radius: 10px;
+  padding: 0.3em 0.7em;
+  border-radius: 5px;
   cursor: pointer;
   font-weight: bold;
 }
-.btn-delete{
+.btn-delete {
   background-color: rgb(211, 12, 12);
   color: white;
   cursor: pointer;
-  padding: 0.2em;
   font-weight: bold;
-  border-radius: 10px;
-  padding: 0.2em 0.5em;
+  border-radius: 5px;
+  padding: 0.3em 0.7em;
 }
 
+/* ---------------- RESPONSIVE ---------------- */
+@media (max-width: 1024px) {
+  .parent {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+
+  .div1,
+  .div2,
+  .div3 {
+    grid-column: span 6;
+    grid-row: auto;
+  }
+
+  .div1 {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .hero-text {
+    padding: 0;
+  }
+}
+@media (max-width: 768px) {
+.hero-image {
+        display: none;
+      }
+}
+
+@media (max-width: 600px) {
+  /*div1*/
+      .div1{
+        flex-direction: column;
+        text-align: center;
+        justify-content: center;
+      }
+      .hero-text{
+        display:block;
+        margin: 0;
+      }
+      .hero-h1 {
+        font-size: 1.4em;
+      }
+
+      .hero-p {
+        font-size: 0.6em;
+      }
+      .hero-image {
+        display: none;
+      }
+      .d-btn {
+        padding: 0.7em 1.2em;
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 0.8em;
+      }
+/*div1*/
+
+/*div2*/
+  
+      .circular-progress {
+        position: relative;
+        height: 9em;
+        width: 9em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 2em;
+        overflow: hidden;
+      }
+
+      .circular-progress::before {
+        content: "";
+        position: absolute;
+        height: 8em;
+        width: 8em;
+      }
+
+      .progress-content {
+        position: relative;
+        text-align: center;
+      }
+
+      .progress-value {
+        font-size: 1rem;
+        font-weight: bold;
+        color: white;
+      }
+
+      .progress-text {
+        font-size: 0.8rem;
+        color: white;
+      }
+
+      .stats-content {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 1em;
+        gap: 1em;
+        width: 100%;
+      }
+      .stats-h2{
+        font-size: 0.9em;
+      }
+      .stats-p{
+        font-size: 0.6em;
+      }
+
+/*div2*/
+
+/*div3*/
+      .div3 {
+        grid-column: span 6;
+        grid-row: span 5;
+        background-color: #e5e7eb;
+        border-radius: 20px;
+        padding: 1em;
+        overflow: hidden;
+      }
+
+      .segmented-control {
+        display: flex;
+        justify-content: center;
+        background: #e5e7eb;
+        border-radius: 10px;
+        padding: 0.1em;
+        margin: 0 auto;
+        gap: 0.1em;
+      }
+
+      .segment {
+        flex: 1;
+        padding: 0.1em 0.2em;
+        cursor: pointer;
+        font-size: 0.8em;
+        font-weight: 500;
+      }
+
+      .segment.active {
+        background: #2563eb;
+        color: white;
+      }
+
+      /* ---------------- TABLE ---------------- */
+      table {
+        margin: 0 auto;
+        margin-top: 2em;
+        border-collapse: collapse;
+        font-size: 0.8em;
+      }
+      
+      th, td {
+
+        text-align: center;
+      }
+      tbody td {
+        background-color: white;
+      }
+
+      .btn-habit {
+        display: flex;
+        gap: 0.1em;
+        justify-content: space-between;
+      }
+
+      .btn-complete, .btn-delete {
+        padding: 0.1em 0.6em;
+        font-size: 0.8em;border-radius: 5px;
+      }
+    
+  
+}
+/*div3*/
