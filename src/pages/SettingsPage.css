@@ -1,0 +1,69 @@
+.settings-page {
+  padding: 20px;
+  min-height: 100vh;
+  background: #f9fafb;
+  font-family: "Segoe UI", sans-serif;
+  color: #111827;
+}
+
+/* Header */
+.settings-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+.settings-header h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+.settings-header p {
+  color: #6b7280;
+}
+
+/* Sections */
+.settings-section {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+.settings-section h2 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: #1f2937;
+}
+.setting-item {
+  margin-bottom: 14px;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+}
+.setting-item label {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Checkbox styling */
+.setting-item input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #2563eb;
+  cursor: pointer;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .settings-header h1 {
+    font-size: 1.6rem;
+  }
+  .settings-section {
+    padding: 16px;
+  }
+  .setting-item {
+    font-size: 0.95rem;
+  }
+}
