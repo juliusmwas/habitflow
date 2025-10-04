@@ -2,28 +2,149 @@
 import React, { useEffect, useState } from "react";
 import "./DashboardPage.css";
 import { RiDashboardHorizontalLine } from "react-icons/ri";
-import { Habits } from "./Habit.js";
+import { db, auth } from "../firebase";
+import { ref, push, set, onValue, update, remove } from "firebase/database";
+import { onAuthStateChanged } from "firebase/auth";
 
 export default function DashboardPage() {
-  // progress state
   const [progress, setProgress] = useState(0);
-
-  // segmented control state
   const [activeTab, setActiveTab] = useState("daily");
 
+  // Habits state
+  const [habits, setHabits] = useState([]);
+
+  // Modal state
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [newHabit, setNewHabit] = useState("");
+  const [habitType, setHabitType] = useState("daily");
+
+ // Fetch habits from Realtime DB (wait for user)
+useEffect(() => {
+  const unsubscribe = onAuthStateChanged(auth, (user) => {
+    if (user) {
+      const habitsRef = ref(db, `habits/${user.uid}`);
+      onValue(habitsRef, (snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+          const now = Date.now();
+
+          const parsed = Object.entries(data).map(([id, value]) => {
+            // Reset to "in progress" if lastCompleted was 24h+ ago
+            if (
+              value.status === "complete" &&
+              value.lastCompleted &&
+              now - value.lastCompleted >= 24 * 60 * 60 * 1000
+            ) {
+              update(ref(db, `habits/${user.uid}/${id}`), {
+                status: "in progress",
+              });
+              return { id, ...value, status: "in progress" };
+            }
+            return { id, ...value };
+          });
+
+          setHabits(parsed);
+        } else {
+          setHabits([]);
+        }
+      });
+    } else {
+      setHabits([]);
+    }
+  });
+
+  return () => unsubscribe();
+}, []);
+
+
+  // Update progress dynamically based on completed habits
   useEffect(() => {
-    let startValue = 0;
-    const endValue = 75;
-    const speed = 20;
+    if (habits.length === 0) {
+      setProgress(0);
+      return;
+    }
 
-    const interval = setInterval(() => {
-      startValue++;
-      setProgress(startValue);
-      if (startValue >= endValue) clearInterval(interval);
-    }, speed);
+    const completed = habits.filter((h) => h.status === "complete").length;
+    const percentage = Math.round((completed / habits.length) * 100);
+    setProgress(percentage);
+  }, [habits]);
 
-    return () => clearInterval(interval);
-  }, []);
+  // Add new habit
+  const handleAddHabit = async (e) => {
+    e.preventDefault();
+    if (!newHabit.trim()) return;
+
+    const user = auth.currentUser;
+    if (!user) {
+      console.error("Not logged in");
+      return;
+    }
+
+    const habitsRef = ref(db, `habits/${user.uid}`);
+    const newHabitRef = push(habitsRef);
+
+    await set(newHabitRef, {
+      habit: newHabit,
+      type: habitType,
+      streak: 0,
+      status: "in progress",
+      createdAt: Date.now(),
+    });
+
+    setNewHabit("");
+    setHabitType("daily");
+    setIsModalOpen(false);
+  };
+
+// Complete habit
+const completeHabit = async (id) => {
+  const user = auth.currentUser;
+  if (!user) return;
+
+  const habitRef = ref(db, `habits/${user.uid}/${id}`);
+
+  onValue(
+    habitRef,
+    (snapshot) => {
+      if (snapshot.exists()) {
+        const habit = snapshot.val();
+        const now = Date.now();
+
+        // Only allow if status is not complete OR 24h passed since last completion
+        if (
+          habit.status !== "complete" ||
+          (habit.lastCompleted && now - habit.lastCompleted >= 24 * 60 * 60 * 1000)
+        ) {
+          const newStreak =
+            habit.status === "complete" &&
+            now - habit.lastCompleted < 24 * 60 * 60 * 1000
+              ? habit.streak
+              : habit.streak + 1;
+
+          update(habitRef, {
+            status: "complete",
+            streak: newStreak,
+            lastCompleted: now,
+          });
+        }
+      }
+    },
+    { onlyOnce: true }
+  );
+};
+
+
+  // Delete habit
+  const deleteHabit = async (id) => {
+    const user = auth.currentUser;
+    if (!user) return;
+
+    const habitRef = ref(db, `habits/${user.uid}/${id}`);
+    await remove(habitRef);
+  };
+
+  // Filter habits by type
+  const filteredHabits = habits.filter((h) => h.type === activeTab);
 
   return (
     <div className="parent">
@@ -37,7 +158,9 @@ export default function DashboardPage() {
             This is essential for making progress <br /> in your health,
             happiness and your life.
           </p>
-          <button className="d-btn">+ Add New Habit</button>
+          <button className="d-btn" onClick={() => setIsModalOpen(true)}>
+            + Add New Habit
+          </button>
         </div>
         <div className="hero-image">
           <img src="./Colony.png" alt="" />
@@ -78,8 +201,8 @@ export default function DashboardPage() {
             <p className="stats-p">Perfect Days</p>
           </div>
           <div className="stats-box">
-            <h2 className="stats-h2">24</h2>
-            <p className="stats-p">Total Habits </p>
+            <h2 className="stats-h2">{habits.length}</h2>
+            <p className="stats-p">Total Habits</p>
           </div>
         </div>
       </div>
@@ -87,32 +210,23 @@ export default function DashboardPage() {
       {/* Segmented Control */}
       <div className="div3">
         <div className="segmented-control">
-          <button
-            className={`segment ${activeTab === "daily" ? "active" : ""}`}
-            onClick={() => setActiveTab("daily")}
-          >
-            Daily
-          </button>
-          <button
-            className={`segment ${activeTab === "weekly" ? "active" : ""}`}
-            onClick={() => setActiveTab("weekly")}
-          >
-            Weekly
-          </button>
-          <button
-            className={`segment ${activeTab === "monthly" ? "active" : ""}`}
-            onClick={() => setActiveTab("monthly")}
-          >
-            Monthly
-          </button>
+          {["daily", "weekly", "monthly"].map((type) => (
+            <button
+              key={type}
+              className={`segment ${activeTab === type ? "active" : ""}`}
+              onClick={() => setActiveTab(type)}
+            >
+              {type.charAt(0).toUpperCase() + type.slice(1)}
+            </button>
+          ))}
         </div>
 
         <div className="segment-content">
-          
-          {/* Daily */}
-          {activeTab === "daily" && (
-            <div className="content active">
-              <div className="table-wrapper">
+          <div className="content active">
+            <div className="table-wrapper">
+              {filteredHabits.length === 0 ? (
+                <p className="no-habits">No habits added</p>
+              ) : (
                 <table>
                   <thead>
                     <tr>
@@ -123,87 +237,82 @@ export default function DashboardPage() {
                     </tr>
                   </thead>
                   <tbody>
-                    {Habits.map((h, index) => (
-                      <tr key={index}>
-                        <td>{h.habit}</td>
-                        <td>{h.streak} 🔥</td>
-                        <td>{h.status}</td>
-                        <td className="btn-habit">
-                          <button className="btn-complete">Complete</button>
-                          <button className="btn-delete">Delete</button>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          )}
+                      {filteredHabits.map((h) => {
+                        const now = Date.now();
+                        const isLocked =
+                          h.status === "complete" &&
+                          h.lastCompleted &&
+                          now - h.lastCompleted < 24 * 60 * 60 * 1000;
 
-          {/* Weekly */}
-          {activeTab === "weekly" && (
-            <div className="content active">
-              <div className="table-wrapper">
-                  <table>
-                    <thead>
-                      <tr>
-                        <th>Habit</th>
-                        <th>Streak</th>
-                        <th>Status</th>
-                        <th>Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {Habits.map((h, index) => (
-                        <tr key={index}>
-                          <td>{h.habit}</td>
-                          <td>{h.streak} 🔥</td>
-                          <td>{h.status}</td>
-                          <td className="btn-habit">
-                            <button className="btn-complete">Complete</button>
-                            <button className="btn-delete">Delete</button>
-                          </td>
-                        </tr>
-                      ))}
+                        return (
+                          <tr key={h.id}>
+                            <td>{h.habit}</td>
+                            <td>{h.streak} 🔥</td>
+                            <td
+                              style={{
+                                color: h.status === "complete" ? "green" : "brown",
+                              }}
+                            >
+                              {h.status}
+                            </td>
+                            <td className="btn-habit">
+                              <button
+                                className="btn-complete"
+                                disabled={isLocked} // ✅ disable if still within 24h
+                                onClick={() => completeHabit(h.id)}
+                              >
+                                {isLocked ? "Wait 24h" : "Complete"}
+                              </button>
+                              <button
+                                className="btn-delete"
+                                onClick={() => deleteHabit(h.id)}
+                              >
+                                Delete
+                              </button>
+                            </td>
+                          </tr>
+                        );
+                      })}
                     </tbody>
-                  </table>
-                </div>
-            </div>
-          )}
 
-          {/* Monthly */}
-          {activeTab === "monthly" && (
-            <div className="content active">
-              <div className="table-wrapper">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Habit</th>
-                      <th>Streak</th>
-                      <th>Status</th>
-                      <th>Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {Habits.map((h, index) => (
-                      <tr key={index}>
-                        <td>{h.habit}</td>
-                        <td>{h.streak} 🔥</td>
-                        <td>{h.status}</td>
-                        <td className="btn-habit">
-                          <button className="btn-complete">Complete</button>
-                          <button className="btn-delete">Delete</button>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
                 </table>
-              </div>
-              
+              )}
             </div>
-          )}
+          </div>
         </div>
       </div>
+
+      {/* Add Habit Modal */}
+      {isModalOpen && (
+        <div className="modal-overlay">
+          <div className="modal">
+            <h2>Add New Habit</h2>
+            <form onSubmit={handleAddHabit}>
+              <input
+                type="text"
+                placeholder="Habit name"
+                value={newHabit}
+                onChange={(e) => setNewHabit(e.target.value)}
+                required
+              />
+              <select
+                value={habitType}
+                onChange={(e) => setHabitType(e.target.value)}
+              >
+                <option value="daily">Daily</option>
+                <option value="weekly">Weekly</option>
+                <option value="monthly">Monthly</option>
+              </select>
+              <div className="modal-actions">
+                <button type="submit">Add Habit</button>
+                <button type="button" onClick={() => setIsModalOpen(false)}>
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

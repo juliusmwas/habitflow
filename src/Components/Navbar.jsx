@@ -6,13 +6,10 @@ import { FaRegUserCircle } from "react-icons/fa";
 
 import "./Navbar.css";
 
-export default function Navbar({ onMenuClick }) {
+export default function Navbar() {
   return (
     <header className="navbar">
       <div className="navbar-left">
-        <button className="menu-btn" onClick={onMenuClick}>
-          <IoMenu size={24} />
-        </button>
         <h1 className="navbar-brand">HabitFlow</h1>
       </div>
 
