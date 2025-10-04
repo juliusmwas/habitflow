@@ -1,0 +1,120 @@
+.journal-page {
+  padding: 20px;
+  background: #f9fafb;
+  min-height: 100vh;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.journal-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.journal-header h1 {
+  font-size: 1.8rem;
+  margin-bottom: 6px;
+  color: #1f2937;
+}
+
+.journal-header p {
+  color: #6b7280;
+}
+
+/* Form */
+.journal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: white;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  margin-bottom: 24px;
+}
+
+.journal-form input,
+.journal-form textarea {
+  padding: 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.journal-form textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.journal-form button {
+  background: #2563eb;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.journal-form button:hover {
+  background: #1d4ed8;
+}
+
+/* Entries */
+.journal-entries {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.journal-card {
+  background: white;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+.journal-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.journal-card h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #111827;
+}
+
+.journal-card p {
+  color: #374151;
+  margin-bottom: 12px;
+}
+
+.delete-btn {
+  background: #ef4444;
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.2s;
+}
+
+.delete-btn:hover {
+  background: #dc2626;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .journal-form,
+  .journal-card {
+    padding: 12px;
+  }
+
+  .journal-header h1 {
+    font-size: 1.5rem;
+  }
+}
