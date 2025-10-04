@@ -19,6 +19,7 @@
   margin-left: 220px; /* default when expanded */
   padding: 20px;
   transition: margin-left 0.3s ease;
+  margin-top: 3em;
 }
 
 /* When collapsed, adjust */
