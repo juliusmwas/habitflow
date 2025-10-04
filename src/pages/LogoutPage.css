@@ -1,0 +1,77 @@
+/* Container */
+.logout-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Card */
+.logout-card {
+  background: #ffffff;
+  padding: 40px 30px;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Title */
+.logout-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 12px;
+}
+
+/* Subtext */
+.logout-subtext {
+  color: #6b7280;
+  font-size: 1rem;
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+/* Buttons */
+.btn {
+  width: 100%;
+  padding: 12px 18px;
+  font-size: 1rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  margin-bottom: 12px;
+}
+
+/* Logout button */
+.btn-logout {
+  background-color: #ef4444;
+  color: #fff;
+  border: none;
+}
+.btn-logout:hover {
+  background-color: #dc2626;
+  transform: translateY(-2px);
+}
+
+/* Cancel button */
+.btn-cancel {
+  background-color: #fff;
+  color: #374151;
+  border: 1px solid #d1d5db;
+}
+.btn-cancel:hover {
+  background-color: #f3f4f6;
+  transform: translateY(-2px);
+}
+
+/* Footer */
+.logout-footer {
+  margin-top: 20px;
+  font-size: 0.9rem;
+  color: #9ca3af;
+}
