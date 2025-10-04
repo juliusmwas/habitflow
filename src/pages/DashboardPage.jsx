@@ -95,7 +95,6 @@ useEffect(() => {
     setHabitType("daily");
     setIsModalOpen(false);
   };
-
 // Complete habit
 const completeHabit = async (id) => {
   const user = auth.currentUser;
@@ -121,10 +120,18 @@ const completeHabit = async (id) => {
               ? habit.streak
               : habit.streak + 1;
 
+          // ✅ Update main habit fields
           update(habitRef, {
             status: "complete",
             streak: newStreak,
             lastCompleted: now,
+          });
+
+          // ✅ Log this completion into a subpath: habits/{uid}/{habitId}/completions
+          const completionsRef = ref(db, `habits/${user.uid}/${id}/completions`);
+          const newCompletionRef = push(completionsRef);
+          set(newCompletionRef, {
+            completedAt: now,
           });
         }
       }
@@ -132,7 +139,6 @@ const completeHabit = async (id) => {
     { onlyOnce: true }
   );
 };
-
 
   // Delete habit
   const deleteHabit = async (id) => {
