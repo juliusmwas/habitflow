@@ -8,7 +8,7 @@ function Hero(){
             <section className="container">
             <div className="hero-text">
                     <div className="hero-heading">Build Habits <br />That Stick.</div>
-                    <p className="hero-p">Track, analyze and improve your daily <br />habits with smart reminders and <br />progress charts.</p>
+                    <p className="hp">Track, analyze and improve your daily <br />habits with smart reminders and <br />progress charts.</p>
                     <div className="hero-btn">
                         <Link to="/auth">
                         <button className="get-started-btn">Get Started (Free)</button>
